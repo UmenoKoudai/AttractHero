@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] int _moveSpeed;
+    [SerializeField] int _jumpPower;
     [SerializeField] BlockController _blockMove;
     [SerializeField] LayerMask _block;
     Rigidbody2D _rb;
@@ -20,6 +21,10 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         _rb.velocity = new Vector2(_x * _moveSpeed, _rb.velocity.y);
+        if(Input.GetButtonDown("Jump"))
+        {
+            _rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
+        }
     }
     void Update()
     {
