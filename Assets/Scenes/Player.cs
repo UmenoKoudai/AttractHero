@@ -6,8 +6,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] int _moveSpeed;
-    [SerializeField] Transform _mousePosition;
     [SerializeField] BlockController _blockMove;
+    [SerializeField] LayerMask _block;
     Rigidbody2D _rb;
     float _x;
     // Start is called before the first frame update
@@ -25,9 +25,9 @@ public class Player : MonoBehaviour
     {
         _x = Input.GetAxisRaw("Horizontal");
         FlipX(_x);
-        Vector3 MousePosition = _mousePosition.position;
-        RaycastHit2D hit = Physics2D.Linecast(transform.position, transform.position + MousePosition);
-        Debug.DrawLine(transform.position, MousePosition);
+        Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, MousePosition, _block);
+        Debug.DrawLine(transform.position, MousePosition, Color.red);
         if(Input.GetButton("Fire1"))
         {
             if(hit.collider)
