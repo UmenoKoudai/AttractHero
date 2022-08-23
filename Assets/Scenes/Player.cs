@@ -33,9 +33,9 @@ public class Player : MonoBehaviour
         Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, MousePosition, _block);
         Debug.DrawLine(transform.position, MousePosition, Color.red);
-        if(Input.GetButton("Fire1"))
+        if(hit)
         {
-            if(hit.collider)
+            if(Input.GetButton("Fire1"))
             {
                 _blockMove.Move();
             }

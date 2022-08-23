@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 1499380903}
   - component: {fileID: 1499380902}
   - component: {fileID: 1499380901}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Brock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
