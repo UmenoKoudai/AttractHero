@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] int _moveSpeed;
     [SerializeField] int _jumpPower;
-    [SerializeField] BlockController _blockMove;
+    //[SerializeField] BlockController _blockMove;
     [SerializeField] LayerMask _block;
     Rigidbody2D _rb;
     float _x;
@@ -30,14 +30,17 @@ public class Player : MonoBehaviour
     {
         _x = Input.GetAxisRaw("Horizontal");
         FlipX(_x);
-        Vector3 MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, MousePosition, _block);
-        Debug.DrawLine(transform.position, MousePosition, Color.red);
-        if(hit)
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
+        if(Input.GetButton("Fire1"))
         {
-            if(Input.GetButton("Fire1"))
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, _block);
+            Debug.DrawLine(ray.origin, ray.direction, Color.red);
+            if (hit)
             {
-                _blockMove.Move();
+                //BlockController bloackMove = 
+                //Debug.Log("HIT");
+                //_blockMove.Move();
             }
         }
     }
