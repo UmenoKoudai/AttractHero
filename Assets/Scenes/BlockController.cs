@@ -9,6 +9,7 @@ public class BlockController : MonoBehaviour
     [SerializeField] float _playerArea;
     [SerializeField] int _moveSpeed;
     Rigidbody2D _rb;
+    bool _isBlockMove;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +17,11 @@ public class BlockController : MonoBehaviour
     }
     public void Move()
     {
-        _rb.bodyType = RigidbodyType2D.Dynamic;
-        float dir = Vector2.Distance(transform.position, _player.transform.position);
-        if (dir >= _playerArea)
+        _isBlockMove = !_isBlockMove;
+        //float dir = Vector2.Distance(transform.position, _player.transform.position);
+        if (_isBlockMove)
         {
+            _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb.velocity = (_player.position - transform.position).normalized * _moveSpeed;
         }
         else
