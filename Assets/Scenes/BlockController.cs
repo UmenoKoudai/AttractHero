@@ -14,18 +14,18 @@ public class BlockController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void Move()
     {
+        _rb.bodyType = RigidbodyType2D.Dynamic;
         float dir = Vector2.Distance(transform.position, _player.transform.position);
-        if(dir >= _playerArea)
+        if (dir >= _playerArea)
         {
             _rb.velocity = (_player.position - transform.position).normalized * _moveSpeed;
+        }
+        else
+        {
+            _rb.velocity = Vector2.zero;
+            _rb.bodyType = RigidbodyType2D.Kinematic;
         }
     }
 }

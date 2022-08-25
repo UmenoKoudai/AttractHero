@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
 {
     [SerializeField] int _moveSpeed;
     [SerializeField] int _jumpPower;
-    //[SerializeField] BlockController _blockMove;
     [SerializeField] LayerMask _block;
     Rigidbody2D _rb;
+    bool _isGround;
     float _x;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         _rb.velocity = new Vector2(_x * _moveSpeed, _rb.velocity.y);
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump") && _isGround)
         {
             _rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
         }
@@ -38,9 +38,9 @@ public class Player : MonoBehaviour
             Debug.DrawLine(ray.origin, ray.direction, Color.red);
             if (hit)
             {
-                //BlockController bloackMove = 
-                //Debug.Log("HIT");
-                //_blockMove.Move();
+                GameObject Block = hit.transform.gameObject;
+                BlockController bloackMove = Block.GetComponent<BlockController>();
+                bloackMove.Move();
             }
         }
     }
@@ -53,6 +53,20 @@ public class Player : MonoBehaviour
         else if(X < 0)
         {
             transform.localScale = new Vector2(-1 * Mathf.Abs(transform.localScale.x), transform.localScale.y);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Ground")
+        {
+            _isGround = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Ground")
+        {
+            _isGround = false;
         }
     }
 }
