@@ -9,17 +9,19 @@ public class BlockController : MonoBehaviour
     [SerializeField] Transform _player;
     /// <summary>Rigidbody2Dを格納する場所</summary>
     Rigidbody2D _rb;
+    Player _playerScript;
     /// <summary>ブロックの静止と移動の判定</summary>
     bool _isBlockMove;
     Vector3 _basePositon;
     // Start is called before the first frame update
     void Start()
     {
+        _playerScript = GameObject.FindObjectOfType<Player>();
         //最初のポジションを変数に代入
         _basePositon = transform.position;
         _rb = GetComponent<Rigidbody2D>();
         //PlayerスクリプトのPositionReset変数にBlockPositionResetメソッドを代入
-        Player.PositionReset += BlockPositionReset;
+        _playerScript.PositionReset += BlockPositionReset;
     }
     //ブロックを移動させるためのメソッド
     public void Move(int MoveSpeed)
