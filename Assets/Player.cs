@@ -17,29 +17,38 @@ public class Player : MonoBehaviour
     [SerializeField] int _blockMoveSpeedRigit;
     /// <summary>Raycastでオブジェクトを判定するレイヤー/</summary>
     [SerializeField] LayerMask _block;
+    /// <summary>GameManagerスクリプトを格納する変数</summary>
     [SerializeField] GameManager _gameManager;
-    [SerializeField] GameStat _stat = GameStat.Playing;
     /// <summary>Rigidbody2Dの格納場所/</summary>
     Rigidbody2D _rb;
     /// <summary>ブロックのポジションをリセットするメソッドを格納するデリゲート</summary>
-    public static event Action _positionReset;
+    event Action _positionReset;
+    /// <summary>ゲームが終了したときに動くメソッドを格納する</summary>
+    event Action _gameFinish;
     /// <summary>ジャンプ判定の変数/</summary>
     public bool _isGround;
+    /// <summary>ゲーム終了したらtrueになって動作を止める</summary>
+    bool _isFinish;
     /// <summary>左右移動の入力を格納する変数/</summary>
     float _x;
     /// <summary>ポジションリセットのデリゲートをプロパティ化</summary>
-    public static Action PositionReset { get => _positionReset; set => _positionReset = value; }
+    public Action PositionReset { get => _positionReset; set => _positionReset = value; }
+    /// <summary>ゲーム終了のデリゲートをプロパティ化</summary>
+    public Action AllGameFinish { get => _gameFinish; set => _gameFinish = value; }
     void Start()
     {
         //Rigidbody2Dを格納
         _rb = GetComponent<Rigidbody2D>();
+        //変数にGameManagerスクリプトを代入
         _gameManager = GameObject.FindObjectOfType<GameManager>();
+        //ゲーム終了のデリゲートにメソッドを代入
+        AllGameFinish += GameFinish;
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (_stat == GameStat.Playing)
+        if (!_isFinish)
         {
             //キャラの移動(左右移動)　　　　　　　　　　　　　　　　　　　　　　　　　　　　
             _rb.velocity = new Vector2(_x * _moveSpeed, _rb.velocity.y);
@@ -53,7 +62,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        if (_stat == GameStat.Playing)
+        if (!_isFinish)
         {
             //左右の入力を変数に格納
             _x = Input.GetAxisRaw("Horizontal");
@@ -120,16 +129,14 @@ public class Player : MonoBehaviour
         }
         else if (collision.tag == "Flag")
         {
+            _gameFinish();
             _gameManager.GameManagerSetActive();
         }
     }
-    public void GameFinish()
+    //ゲーム終了時にbool型をtrueにする
+    void GameFinish()
     {
-        _stat = GameStat.Finish;
+        _isFinish = true;
     }
 }
-enum GameStat
-{
-    Playing,
-    Finish,
-}
+
