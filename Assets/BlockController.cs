@@ -11,10 +11,15 @@ public class BlockController : MonoBehaviour
     Rigidbody2D _rb;
     /// <summary>ブロックの静止と移動の判定</summary>
     bool _isBlockMove;
+    Vector3 _basePositon;
     // Start is called before the first frame update
     void Start()
     {
+        //最初のポジションを変数に代入
+        _basePositon = transform.position;
         _rb = GetComponent<Rigidbody2D>();
+        //PlayerスクリプトのPositionReset変数にBlockPositionResetメソッドを代入
+        Player.PositionReset += BlockPositionReset;
     }
     //ブロックを移動させるためのメソッド
     public void Move(int MoveSpeed)
@@ -37,5 +42,10 @@ public class BlockController : MonoBehaviour
             //移動の力(ベクトル)がゼロになる
             _rb.velocity = Vector2.zero;
         }
+    }
+    //ブロックのポジションをReset
+    void BlockPositionReset()
+    {
+        transform.position = _basePositon;
     }
 }

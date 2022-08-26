@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
@@ -17,11 +19,15 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask _block;
     /// <summary>Rigidbody2Dの格納場所/</summary>
     Rigidbody2D _rb;
+    /// <summary>ブロックのポジションをリセットするメソッドを格納するデリゲート</summary>
+    public static event Action _positionReset;
     /// <summary>ジャンプ判定の変数/</summary>
-    bool _isGround;
+    public bool _isGround;
     /// <summary>左右移動の入力を格納する変数/</summary>
     float _x;
-    // Start is called before the first frame update
+    //Vector2 _lineForGround = new Vector2(0f, -1.5f);
+    /// <summary>ポジションリセットのデリゲートをプロパティ化</summary>
+    public static Action PositionReset { get => _positionReset; set => _positionReset = value; }
     void Start()
     {
         //Rigidbody2Dを格納
@@ -50,6 +56,25 @@ public class Player : MonoBehaviour
         //カメラの位置からマウスの位置までRayを飛ばす
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         Debug.DrawLine(ray.origin, ray.direction, Color.red);
+        //Vector2 start = transform.position;
+        //RaycastHit2D groundHit = Physics2D.Raycast(start, start + _lineForGround);
+        //Debug.DrawLine(start, start + _lineForGround);
+        //if (groundHit && groundHit.collider.tag != "GameArea")
+        //{
+        //    _isGround = true;
+        //}
+        //else
+        //{
+        //    _isGround = false;
+        //}
+        ////if (groundHit.collider.tag == "Ground" || groundHit.collider.tag == "Block" && groundHit.collider.tag != "Player")
+        ////{
+        ////    _isGround = true;
+        ////}
+        ////else
+        ////{
+        ////    _isGround = false;
+        ////}
         //移動可能のブロックを動かす(プレイヤーの方向に移動する)
         if (Input.GetButtonDown("Fire1"))
         {
@@ -78,6 +103,11 @@ public class Player : MonoBehaviour
                 bloackMove.Move(_blockMoveSpeedRigit);
             }
         }
+        //エスケープキー(esc)を押したらブロックの位置がリセットされる
+        if(Input.GetButtonDown("Cancel"))
+        {
+            _positionReset();
+        }
     }
     //プレイヤーを入力方向に向けるメソッド
     void FlipX(float X)
@@ -94,14 +124,18 @@ public class Player : MonoBehaviour
     //接地判定
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Ground" || collision.tag == "Block")
+        if (collision.tag == "Ground" || collision.tag == "Block")
         {
             _isGround = true;
+        }
+        else if(collision.tag =="Flag")
+        {
+            
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag == "Ground" || collision.tag == "Block")
+        if (collision.tag == "Ground" || collision.tag == "Block")
         {
             _isGround = false;
         }
