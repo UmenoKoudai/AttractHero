@@ -7,6 +7,7 @@ public class BlockController : MonoBehaviour
 {
     /// <summary>プレイヤーの場所を取得</summary>
     [SerializeField] Transform _player;
+    [SerializeField] int _moveSpeed;
     /// <summary>Rigidbody2Dを格納する場所</summary>
     Rigidbody2D _rb;
     /// <summary>プレイヤースクリプトを代入する型</summary>
@@ -17,6 +18,7 @@ public class BlockController : MonoBehaviour
     bool _isFinish;
     /// <summary>ブロックの元の位置を記録する型</summary>
     Vector3 _basePositon;
+    Vector3 mousePosition;
     void Start()
     {
         //プレイヤースクリプトを代入
@@ -29,20 +31,32 @@ public class BlockController : MonoBehaviour
         //PlayerスクリプトのAllGameFinish変数にGameFinishメソッドを代入
         _playerScript.AllGameFinish += GameFinish;
     }
+    private void Update()
+    {
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
     //ブロックを移動させるためのメソッド
-    public void Move(int MoveSpeed)
+    public void Move(bool MoveSwich)
     {
         if (!_isFinish)
         {
             //もう1度実行されると静止と移動の判定が逆になる
             _isBlockMove = !_isBlockMove;
+            
             //_isBlockMoveがtrueの場合はプレイヤーに向かって移動する
             if (_isBlockMove)
             {
                 //bodyTypeがDynamicになる
                 _rb.bodyType = RigidbodyType2D.Dynamic;
-                //プレイヤーに向かって移動する
-                _rb.velocity = (_player.position - transform.position).normalized * MoveSpeed;
+                if (MoveSwich)
+                {
+                    //プレイヤーに向かって移動する
+                    _rb.velocity = (_player.position - transform.position).normalized * _moveSpeed;
+                }
+                else
+                {
+                    _rb.velocity = (mousePosition - transform.position).normalized * _moveSpeed * 10;
+                }
             }
             //_isBlockMoveがfalseの場合は移動が静止する
             else

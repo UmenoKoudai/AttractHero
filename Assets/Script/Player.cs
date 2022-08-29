@@ -12,14 +12,11 @@ public class Player : MonoBehaviour
     [SerializeField] int _moveSpeed;
     /// <summary>ジャンプの力/</summary>
     [SerializeField] int _jumpPower;
-    /// <summary>ブロックを左に動かす力/</summary>
-    [SerializeField] int _blockMoveSpeedLeft;
-    /// <summary>ブロックを右に動かす力/</summary>
-    [SerializeField] int _blockMoveSpeedRigit;
     /// <summary>Raycastでオブジェクトを判定するレイヤー/</summary>
     [SerializeField] LayerMask _block;
     /// <summary>GameManagerスクリプトを格納する変数</summary>
     [SerializeField] GameManager _gameManager;
+    [SerializeField] int _clearCount;
     /// <summary>Rigidbody2Dの格納場所/</summary>
     Rigidbody2D _rb;
     /// <summary>ブロックのポジションをリセットするメソッドを格納するデリゲート</summary>
@@ -32,6 +29,7 @@ public class Player : MonoBehaviour
     bool _isFinish;
     /// <summary>左右移動の入力を格納する変数/</summary>
     float _x;
+    int _itemCount;
     /// <summary>ポジションリセットのデリゲートをプロパティ化</summary>
     public Action PositionReset { get => _positionReset; set => _positionReset = value; }
     /// <summary>ゲーム終了のデリゲートをプロパティ化</summary>
@@ -81,7 +79,7 @@ public class Player : MonoBehaviour
                     //Blockに入ったオブジェクトに入っているBlockControllerを変数に代入
                     BlockController bloackMove = Block.GetComponent<BlockController>();
                     //BlockControllerにあるMoveメソッドを実行
-                    bloackMove.Move(_blockMoveSpeedLeft);
+                    bloackMove.Move(true);
                 }
             }
             //移動可能のブロックを動かす(プレイヤーと逆方向に移動する)
@@ -95,7 +93,7 @@ public class Player : MonoBehaviour
                     //Blockに入ったオブジェクトに入っているBlockControllerを変数に代入
                     BlockController bloackMove = Block.GetComponent<BlockController>();
                     //BlockControllerにあるMoveメソッドを実行
-                    bloackMove.Move(_blockMoveSpeedRigit);
+                    bloackMove.Move(false);
                 }
             }
             //エスケープキー(esc)を押したらブロックの位置がリセットされる
@@ -125,10 +123,14 @@ public class Player : MonoBehaviour
         {
             _isGround = true;
         }
-        else if (collision.tag == "Flag")
+        else if (collision.tag == "Flag" && _itemCount == _clearCount)
         {
             _gameFinish();
             _gameManager.GameManagerSetActive();
+        }
+        if(collision.tag == "Ball")
+        {
+            _itemCount++;
         }
     }
     //ゲーム終了時にbool型をtrueにする
