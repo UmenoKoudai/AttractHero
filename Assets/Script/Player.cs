@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -50,8 +51,8 @@ public class Player : MonoBehaviour
     {
         if (!_isFinish)
         {
-            //キャラの移動(左右移動)　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-            _rb.velocity = new Vector2(_x * _moveSpeed, _rb.velocity.y);
+            //キャラの移動と向きを変える
+            FlipX(Input.GetAxisRaw("Horizontal"));
             //キャラの移動(ジャンプ)
             if (Input.GetButtonDown("Jump") && _isGround)
             {
@@ -64,10 +65,6 @@ public class Player : MonoBehaviour
     {
         if (!_isFinish)
         {
-            //左右の入力を変数に格納
-            _x = Input.GetAxisRaw("Horizontal");
-            //プレイヤーを入力方向に向ける
-            FlipX(_x);
             //Rayを飛ばす為のマウスポジションを取得
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             //カメラの位置からマウスの位置までRayを飛ばす
@@ -111,7 +108,8 @@ public class Player : MonoBehaviour
     //プレイヤーを入力方向に向けるメソッド
     void FlipX(float X)
     {
-        if(X > 0)
+        _rb.velocity = new Vector2(X * _moveSpeed, _rb.velocity.y);
+        if (X > 0)
         {
             transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
         }
