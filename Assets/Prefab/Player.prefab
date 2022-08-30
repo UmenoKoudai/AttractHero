@@ -224,11 +224,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 5
   _jumpPower: 7
-  _blockMoveSpeedLeft: 2
-  _blockMoveSpeedRigit: -2
   _block:
     serializedVersion: 2
     m_Bits: 64
+  _gameManager: {fileID: 0}
+  _clearCount: 0
+  _isGroundedLength: 1.5
   _isGround: 0
 --- !u!61 &4089503614187774445
 BoxCollider2D:
