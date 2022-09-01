@@ -6,7 +6,7 @@ using UnityEngine;
 public class BlockController : MonoBehaviour
 {
     /// <summary>プレイヤーの場所を取得</summary>
-    [SerializeField] Transform _player;
+    [SerializeField] GameObject _player;
     [SerializeField] int _moveSpeed;
     /// <summary>Rigidbody2Dを格納する場所</summary>
     Rigidbody2D _rb;
@@ -48,15 +48,17 @@ public class BlockController : MonoBehaviour
             {
                 //bodyTypeがDynamicになる
                 _rb.bodyType = RigidbodyType2D.Dynamic;
-                if (MoveSwich)
-                {
-                    //プレイヤーに向かって移動する
-                    _rb.velocity = (_player.position - transform.position).normalized * _moveSpeed;
-                }
-                else
-                {
-                    _rb.velocity = (mousePosition - transform.position).normalized * _moveSpeed * 10;
-                }
+                //プレイヤーに向かって移動する
+                _rb.velocity = (_player.transform.position - transform.position).normalized * _moveSpeed;
+                //if (MoveSwich)
+                //{
+                //    //プレイヤーに向かって移動する
+                //    _rb.velocity = (_player.transform.position - transform.position).normalized * _moveSpeed;
+                //}
+                //else
+                //{
+                //    _rb.velocity = (mousePosition - transform.position).normalized * _moveSpeed * 10;
+                //}
             }
             //_isBlockMoveがfalseの場合は移動が静止する
             else
@@ -66,6 +68,14 @@ public class BlockController : MonoBehaviour
                 //移動の力(ベクトル)がゼロになる
                 _rb.velocity = Vector2.zero;
             }
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            _playerScript.BlockList.Add(this.gameObject);
+            this.transform.SetParent(_player.transform);
         }
     }
     //ブロックのポジションをReset

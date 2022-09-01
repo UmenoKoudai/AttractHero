@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] int _clearCount;
     /// <summary>接地判定の時にRayを飛ばす距離</summary>
     [SerializeField] float _isGroundedLength = 1f;
+    [SerializeField] GameObject _barral;
     /// <summary>Rigidbody2Dの格納場所/</summary>
     Rigidbody2D _rb;
     /// <summary>ゲームスタートのポジションを記録するための変数</summary>
@@ -34,11 +35,13 @@ public class Player : MonoBehaviour
     bool _isFinish;
     /// <summary>アイテム取得でカウントが増える</summary>
     int _itemCount;
+    List<GameObject> _blockList = new List<GameObject>();
 
     /// <summary>ポジションリセットのデリゲートをプロパティ化</summary>
     public Action PositionReset { get => _positionReset; set => _positionReset = value; }
     /// <summary>ゲーム終了のデリゲートをプロパティ化</summary>
     public Action AllGameFinish { get => _gameFinish; set => _gameFinish = value; }
+    public List<GameObject> BlockList { get => _blockList; set => _blockList = value; }
 
     void Start()
     {
@@ -57,6 +60,7 @@ public class Player : MonoBehaviour
     {
         if (!_isFinish)
         {
+            
             //キャラの移動と向きを変える
             FlipX(Input.GetAxisRaw("Horizontal"));
             //キャラの移動(ジャンプ)
@@ -85,6 +89,13 @@ public class Player : MonoBehaviour
                     BlockController bloackMove = Block.GetComponent<BlockController>();
                     //BlockControllerにあるMoveメソッドを実行
                     bloackMove.Move(true);
+                }
+                else
+                {
+                    if(_blockList != null)
+                    {
+                        // _blockList.[0]
+                    }
                 }
             }
             //移動可能のブロックを動かす(プレイヤーと逆方向に移動する)
