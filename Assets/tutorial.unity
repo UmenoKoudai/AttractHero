@@ -2711,10 +2711,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6193424450402402406, guid: 4a24ca18e7363614fa42f11dddea2573, type: 3}
-      propertyPath: _jumpPower
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6193424450402402406, guid: 4a24ca18e7363614fa42f11dddea2573, type: 3}
       propertyPath: _gameManager
       value: 
       objectReference: {fileID: 2034479242}

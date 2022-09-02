@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject _barral;
     /// <summary>左右移動の力/</summary>
     [SerializeField] int _moveSpeed;
+    [SerializeField] int _defaultSpeed;
+    [SerializeField] int _dushSpeed;
     /// <summary>ジャンプの力/</summary>
     [SerializeField] int _jumpPower;
     /// <summary>接地判定の時にRayを飛ばす距離</summary>
@@ -142,12 +144,22 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+            if(Input.GetButtonDown("Fire3"))
+            {
+                StartCoroutine(Dush());
+            }
             //エスケープキー(esc)を押したらブロックの位置がリセットされる
             if (Input.GetButtonDown("Cancel"))
             {
                 _positionReset();
             }
         }
+    }
+    IEnumerator Dush()
+    {
+        _moveSpeed = _dushSpeed;
+        yield return new WaitForSeconds(0.5f);
+        _moveSpeed = _defaultSpeed;
     }
     //プレイヤーを入力方向に向けるメソッド
     void FlipX(float X)

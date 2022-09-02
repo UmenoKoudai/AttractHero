@@ -256,7 +256,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _barral: {fileID: 6193424451036187055}
   _moveSpeed: 5
-  _jumpPower: 5
+  _defaultSpeed: 5
+  _dushSpeed: 10
+  _jumpPower: 6
   _isGroundedLength: 1.5
   _groundLayer:
     serializedVersion: 2
@@ -345,7 +347,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4a455ab3088081149b07659873ba871e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
