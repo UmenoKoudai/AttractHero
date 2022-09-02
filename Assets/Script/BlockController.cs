@@ -6,14 +6,13 @@ using UnityEngine;
 public class BlockController : MonoBehaviour
 {
     /// <summary>プレイヤーの場所を取得</summary>
-    [SerializeField] GameObject _player;
     [SerializeField] int _moveSpeed;
     [SerializeField] bool _scaffoldBlock = false;
     [SerializeField] bool _bulletBlock = false;
     /// <summary>Rigidbody2Dを格納する場所</summary>
     Rigidbody2D _rb;
     /// <summary>プレイヤースクリプトを代入する型</summary>
-    Player _playerScript;
+    Player _player;
     /// <summary>ブロックの静止と移動の判定</summary>
     bool _isBlockMove;
     /// <summary>ゲーム終了したらtrueになって動作を止める</summary>
@@ -23,14 +22,14 @@ public class BlockController : MonoBehaviour
     void Start()
     {
         //プレイヤースクリプトを代入
-        _playerScript = GameObject.FindObjectOfType<Player>();
+        _player = GameObject.FindObjectOfType<Player>();
         //最初のポジションを変数に代入
         _basePositon = transform.position;
         _rb = GetComponent<Rigidbody2D>();
         //PlayerスクリプトのPositionReset変数にBlockPositionResetメソッドを代入
-        _playerScript.PositionReset += BlockPositionReset;
+        _player.PositionReset += BlockPositionReset;
         //PlayerスクリプトのAllGameFinish変数にGameFinishメソッドを代入
-        _playerScript.AllGameFinish += GameFinish;
+        _player.AllGameFinish += GameFinish;
     }
     //ブロックを移動させるためのメソッド
     public void Move(bool MoveSwich)
@@ -64,13 +63,14 @@ public class BlockController : MonoBehaviour
         {
             if (_bulletBlock)
             {
-                _playerScript.BulletList.Add(gameObject);
+                _player.BulletList.Add(gameObject);
             }
             else if (_scaffoldBlock)
             {
-                _playerScript.ScaffoldBlockList.Add(gameObject);
+                _player.ScaffoldBlockList.Add(gameObject);
             }
-            Destroy(gameObject);
+            _rb.bodyType = RigidbodyType2D.Kinematic;
+            transform.Translate(new Vector3(-99f, -99f, 0f));
         }
     }
     //ブロックのポジションをReset

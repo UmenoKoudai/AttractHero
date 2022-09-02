@@ -8,6 +8,7 @@ TagManager:
   - Block
   - Flag
   - Ball
+  - Bullet
   layers:
   - Default
   - TransparentFX

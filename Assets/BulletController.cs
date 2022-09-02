@@ -12,5 +12,6 @@ public class BulletController : MonoBehaviour
         _cursor = GameObject.FindObjectOfType<BarralController>();
         _rb = GetComponent<Rigidbody2D>();
         _rb.velocity = _cursor.transform.up * _shootSpeed;
+        Destroy(gameObject, 5f);
     }
 }

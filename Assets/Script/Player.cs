@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
                         {
                             GameObject ScaffoldBlock = Instantiate(_scaffold);
                             ScaffoldBlock.transform.position = _cursor.position;
-                            _bulletList.Remove(gameObject);
+                            _scaffoldBlockList.RemoveAt(0);
                         }
                     }
                 }
@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
                     {
                         GameObject BulletBlock = Instantiate(_bullet);
                         BulletBlock.transform.position = _muzzlePosition.position;
-                        _bulletList.Remove(gameObject);
+                        _bulletList.RemoveAt(0);
                     }
                 }
             }
