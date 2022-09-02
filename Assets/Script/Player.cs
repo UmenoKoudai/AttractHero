@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -21,6 +22,14 @@ public class Player : MonoBehaviour
     /// <summary>接地判定の時にRayを飛ばす距離</summary>
     [SerializeField] float _isGroundedLength = 1f;
     [SerializeField] GameObject _barral;
+    [SerializeField] Text _moveBlockCountText;
+    [SerializeField] Text _bulletBlockCountText;
+    [SerializeField] int _shootSpeed;
+    [SerializeField] GameObject _scaffold;
+    [SerializeField] GameObject _bullet;
+    [SerializeField] Transform _cursor;
+    List<GameObject> _scaffoldBlockList = new List<GameObject>();
+    List<GameObject> _bulletList = new List<GameObject>();
     /// <summary>Rigidbody2Dの格納場所/</summary>
     Rigidbody2D _rb;
     /// <summary>ゲームスタートのポジションを記録するための変数</summary>
@@ -35,13 +44,14 @@ public class Player : MonoBehaviour
     bool _isFinish;
     /// <summary>アイテム取得でカウントが増える</summary>
     int _itemCount;
-    List<GameObject> _blockList = new List<GameObject>();
 
     /// <summary>ポジションリセットのデリゲートをプロパティ化</summary>
     public Action PositionReset { get => _positionReset; set => _positionReset = value; }
     /// <summary>ゲーム終了のデリゲートをプロパティ化</summary>
     public Action AllGameFinish { get => _gameFinish; set => _gameFinish = value; }
-    public List<GameObject> BlockList { get => _blockList; set => _blockList = value; }
+    public List<GameObject> ScaffoldBlockList { get => _scaffoldBlockList; set => _scaffoldBlockList = value; }
+    public List<GameObject> BulletList { get => _bulletList; set => _bulletList = value; }
+
 
     void Start()
     {
@@ -60,7 +70,8 @@ public class Player : MonoBehaviour
     {
         if (!_isFinish)
         {
-            
+            _moveBlockCountText.text = $"足場:{_scaffoldBlockList.Count}";
+            _bulletBlockCountText.text = $"弾数:{_bulletList.Count}";
             //キャラの移動と向きを変える
             FlipX(Input.GetAxisRaw("Horizontal"));
             //キャラの移動(ジャンプ)
@@ -92,24 +103,26 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    if(_blockList != null)
+                    if(_scaffoldBlockList != null)
                     {
-                        // _blockList.[0]
+                        if (_scaffoldBlockList.Count > 0)
+                        {
+                            GameObject ScaffoldBlock = Instantiate(_scaffold);
+                            ScaffoldBlock.transform.position = _cursor.position;
+                        }
                     }
                 }
             }
             //移動可能のブロックを動かす(プレイヤーと逆方向に移動する)
             if (Input.GetButtonDown("Fire2"))
             {
-                //Rayが当たったオブジェクトのtagがBlockだったら処理を実行
-                if (hit.collider.gameObject.tag == "Block")
+                if (_bulletList != null)
                 {
-                    //変数BlockにRayが当たったオブジェクトを代入
-                    GameObject Block = hit.transform.gameObject;
-                    //Blockに入ったオブジェクトに入っているBlockControllerを変数に代入
-                    BlockController bloackMove = Block.GetComponent<BlockController>();
-                    //BlockControllerにあるMoveメソッドを実行
-                    bloackMove.Move(false);
+                    if (_bulletList.Count > 0)
+                    {
+                        GameObject BulletBlock = Instantiate(_bullet);
+                        BulletBlock.transform.position = transform.position;
+                    }
                 }
             }
             //エスケープキー(esc)を押したらブロックの位置がリセットされる
@@ -153,7 +166,7 @@ public class Player : MonoBehaviour
         //指定のレイヤーオブジェクトにRayが当たっていなければfalseを返す
         _isGround = false;
         //指定のレイヤーオブジェクトにRayが当たっていればtrueを返す
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector3.down, _isGroundedLength, _block);
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.down, _isGroundedLength, _block);
         Debug.DrawRay(this.transform.position, this.transform.position + Vector3.down * _isGroundedLength);
         if (hit.collider)
         {

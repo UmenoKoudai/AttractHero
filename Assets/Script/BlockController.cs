@@ -8,6 +8,8 @@ public class BlockController : MonoBehaviour
     /// <summary>プレイヤーの場所を取得</summary>
     [SerializeField] GameObject _player;
     [SerializeField] int _moveSpeed;
+    [SerializeField] bool _scaffoldBlock = false;
+    [SerializeField] bool _bulletBlock = false;
     /// <summary>Rigidbody2Dを格納する場所</summary>
     Rigidbody2D _rb;
     /// <summary>プレイヤースクリプトを代入する型</summary>
@@ -18,7 +20,6 @@ public class BlockController : MonoBehaviour
     bool _isFinish;
     /// <summary>ブロックの元の位置を記録する型</summary>
     Vector3 _basePositon;
-    Vector3 mousePosition;
     void Start()
     {
         //プレイヤースクリプトを代入
@@ -30,10 +31,6 @@ public class BlockController : MonoBehaviour
         _playerScript.PositionReset += BlockPositionReset;
         //PlayerスクリプトのAllGameFinish変数にGameFinishメソッドを代入
         _playerScript.AllGameFinish += GameFinish;
-    }
-    private void Update()
-    {
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
     //ブロックを移動させるためのメソッド
     public void Move(bool MoveSwich)
@@ -50,15 +47,6 @@ public class BlockController : MonoBehaviour
                 _rb.bodyType = RigidbodyType2D.Dynamic;
                 //プレイヤーに向かって移動する
                 _rb.velocity = (_player.transform.position - transform.position).normalized * _moveSpeed;
-                //if (MoveSwich)
-                //{
-                //    //プレイヤーに向かって移動する
-                //    _rb.velocity = (_player.transform.position - transform.position).normalized * _moveSpeed;
-                //}
-                //else
-                //{
-                //    _rb.velocity = (mousePosition - transform.position).normalized * _moveSpeed * 10;
-                //}
             }
             //_isBlockMoveがfalseの場合は移動が静止する
             else
@@ -74,8 +62,15 @@ public class BlockController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            _playerScript.BlockList.Add(this.gameObject);
-            this.transform.SetParent(_player.transform);
+            if (_bulletBlock)
+            {
+                _playerScript.BulletList.Add(gameObject);
+            }
+            else if (_scaffoldBlock)
+            {
+                _playerScript.ScaffoldBlockList.Add(gameObject);
+            }
+            Destroy(gameObject);
         }
     }
     //ブロックのポジションをReset
