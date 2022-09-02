@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6226331364138998030}
   - component: {fileID: 6226331364138998033}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Item
   m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

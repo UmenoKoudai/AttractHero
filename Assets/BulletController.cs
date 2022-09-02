@@ -6,11 +6,11 @@ public class BulletController : MonoBehaviour
 {
     [SerializeField] int _shootSpeed;
     Rigidbody2D _rb;
-    CursorController _cursor;
+    BarralController _cursor;
     void Start()
     {
-        _cursor = GetComponent<CursorController>();
+        _cursor = GameObject.FindObjectOfType<BarralController>();
         _rb = GetComponent<Rigidbody2D>();
-        _rb.AddForce(_cursor.transform.position * _shootSpeed, ForceMode2D.Impulse);
+        _rb.velocity = _cursor.transform.up * _shootSpeed;
     }
 }

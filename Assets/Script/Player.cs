@@ -9,27 +9,40 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    [Header("プレイヤーの動き")]
+    [SerializeField] GameObject _barral;
     /// <summary>左右移動の力/</summary>
     [SerializeField] int _moveSpeed;
     /// <summary>ジャンプの力/</summary>
     [SerializeField] int _jumpPower;
+    /// <summary>接地判定の時にRayを飛ばす距離</summary>
+    [SerializeField] float _isGroundedLength = 1f;
+
+    [Header("ゲームシステム関係")]
     /// <summary>Raycastでオブジェクトを判定するレイヤー/</summary>
-    [SerializeField] LayerMask _block = 0;
+    [SerializeField] LayerMask _groundLayer = 0;
     /// <summary>GameManagerスクリプトを格納する変数</summary>
     [SerializeField] GameManager _gameManager;
     /// <summary>クリアするために必要なカウント</summary>
     [SerializeField] int _clearCount;
-    /// <summary>接地判定の時にRayを飛ばす距離</summary>
-    [SerializeField] float _isGroundedLength = 1f;
-    [SerializeField] GameObject _barral;
+
+    [Header("その他")]
+    [SerializeField] Transform _muzzlePosition;
+    /// <summary>取得した足場の数を表示するテキスト</summary>
     [SerializeField] Text _moveBlockCountText;
+    /// <summary>取得した弾の数を表示するテキスト</summary>
     [SerializeField] Text _bulletBlockCountText;
-    [SerializeField] int _shootSpeed;
+    /// <summary>足場オブジェクトをアタッチ</summary>
     [SerializeField] GameObject _scaffold;
+    /// <summary>弾オブジェクトをアタッチ</summary>
     [SerializeField] GameObject _bullet;
+    /// <summary>カーソルの位置を取得</summary>
     [SerializeField] Transform _cursor;
+    /// <summary>足場ブロックを格納するList</summary>
     List<GameObject> _scaffoldBlockList = new List<GameObject>();
+    /// <summary>弾ブロックを格納するList</summary>
     List<GameObject> _bulletList = new List<GameObject>();
+
     /// <summary>Rigidbody2Dの格納場所/</summary>
     Rigidbody2D _rb;
     /// <summary>ゲームスタートのポジションを記録するための変数</summary>
@@ -39,7 +52,7 @@ public class Player : MonoBehaviour
     /// <summary>ゲームが終了したときに動くメソッドを格納する</summary>
     event Action _gameFinish;
     /// <summary>ジャンプ判定の変数/</summary>
-    public bool _isGround;
+    bool _isGround;
     /// <summary>ゲーム終了したらtrueになって動作を止める</summary>
     bool _isFinish;
     /// <summary>アイテム取得でカウントが増える</summary>
@@ -49,7 +62,9 @@ public class Player : MonoBehaviour
     public Action PositionReset { get => _positionReset; set => _positionReset = value; }
     /// <summary>ゲーム終了のデリゲートをプロパティ化</summary>
     public Action AllGameFinish { get => _gameFinish; set => _gameFinish = value; }
+    /// <summary>足場ブロックのListをプロパティ</summary>
     public List<GameObject> ScaffoldBlockList { get => _scaffoldBlockList; set => _scaffoldBlockList = value; }
+    /// <summary>弾ブロックのListをプロパティ</summary>
     public List<GameObject> BulletList { get => _bulletList; set => _bulletList = value; }
 
 
@@ -109,6 +124,7 @@ public class Player : MonoBehaviour
                         {
                             GameObject ScaffoldBlock = Instantiate(_scaffold);
                             ScaffoldBlock.transform.position = _cursor.position;
+                            _bulletList.Remove(gameObject);
                         }
                     }
                 }
@@ -121,7 +137,8 @@ public class Player : MonoBehaviour
                     if (_bulletList.Count > 0)
                     {
                         GameObject BulletBlock = Instantiate(_bullet);
-                        BulletBlock.transform.position = transform.position;
+                        BulletBlock.transform.position = _muzzlePosition.position;
+                        _bulletList.Remove(gameObject);
                     }
                 }
             }
@@ -166,8 +183,8 @@ public class Player : MonoBehaviour
         //指定のレイヤーオブジェクトにRayが当たっていなければfalseを返す
         _isGround = false;
         //指定のレイヤーオブジェクトにRayが当たっていればtrueを返す
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.down, _isGroundedLength, _block);
-        Debug.DrawRay(this.transform.position, this.transform.position + Vector3.down * _isGroundedLength);
+        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.down, _isGroundedLength, _groundLayer);
+        Debug.DrawRay(this.transform.position, Vector2.down * _isGroundedLength);
         if (hit.collider)
         {
             _isGround = true;

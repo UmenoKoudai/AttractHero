@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BarralController : MonoBehaviour
 {
-    [SerializeField] Transform _muzzlePosition;
     [SerializeField] Transform _cursor;
     void Update()
     {
