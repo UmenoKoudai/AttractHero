@@ -1211,6 +1211,14 @@ PrefabInstance:
       propertyPath: _bulletBlockCountText
       value: 
       objectReference: {fileID: 2036386200}
+    - target: {fileID: 6193424450402402406, guid: 4a24ca18e7363614fa42f11dddea2573, type: 3}
+      propertyPath: _bulletList.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193424450402402406, guid: 4a24ca18e7363614fa42f11dddea2573, type: 3}
+      propertyPath: _scaffoldBlockList.Array.size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6193424450402402407, guid: 4a24ca18e7363614fa42f11dddea2573, type: 3}
       propertyPath: m_Name
       value: Player
@@ -5406,6 +5414,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5543722493076640779, guid: cd9fe0b7445f27d438fa2a8326dd3afb, type: 3}
+      propertyPath: m_Name
+      value: ClearCountText
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd9fe0b7445f27d438fa2a8326dd3afb, type: 3}
 --- !u!4 &2036386198 stripped
@@ -5440,6 +5452,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 847457633687971242, guid: cd9fe0b7445f27d438fa2a8326dd3afb, type: 3}
   m_PrefabInstance: {fileID: 2036386197}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2036386202 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8128620802079897371, guid: cd9fe0b7445f27d438fa2a8326dd3afb, type: 3}
+  m_PrefabInstance: {fileID: 2036386197}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2039637888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6066,6 +6089,10 @@ PrefabInstance:
       propertyPath: _resultTimer
       value: 
       objectReference: {fileID: 4141984774211223486}
+    - target: {fileID: 5413297706768069361, guid: 03fb6451c225a2c46ad333b093f0115e, type: 3}
+      propertyPath: _clearCountText
+      value: 
+      objectReference: {fileID: 2036386202}
     - target: {fileID: 5413297706768069362, guid: 03fb6451c225a2c46ad333b093f0115e, type: 3}
       propertyPath: m_RootOrder
       value: 2

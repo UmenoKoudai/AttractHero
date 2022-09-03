@@ -41,9 +41,9 @@ public class Player : MonoBehaviour
     /// <summary>カーソルの位置を取得</summary>
     [SerializeField] Transform _cursor;
     /// <summary>足場ブロックを格納するList</summary>
-    List<GameObject> _scaffoldBlockList = new List<GameObject>();
+    [SerializeField] List<GameObject> _scaffoldBlockList = new List<GameObject>();
     /// <summary>弾ブロックを格納するList</summary>
-    List<GameObject> _bulletList = new List<GameObject>();
+    [SerializeField] List<GameObject> _bulletList = new List<GameObject>();
 
     /// <summary>Rigidbody2Dの格納場所/</summary>
     Rigidbody2D _rb;
@@ -60,6 +60,8 @@ public class Player : MonoBehaviour
     /// <summary>アイテム取得でカウントが増える</summary>
     int _itemCount;
 
+    public int ItemCount { get => _itemCount; }
+    public int ClearCount { get => _clearCount; }
     /// <summary>ポジションリセットのデリゲートをプロパティ化</summary>
     public Action PositionReset { get => _positionReset; set => _positionReset = value; }
     /// <summary>ゲーム終了のデリゲートをプロパティ化</summary>
