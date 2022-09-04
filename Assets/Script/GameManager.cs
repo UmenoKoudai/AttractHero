@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _close;
     /// <summary>SetActiveで表示させるオブジェクトを格納する変数</summary>
     [SerializeField] GameObject _open;
-    [SerializeField] Text _clearCountText;
     /// <summary>Playerスクリプトを格納する変数</summary>
     Player _playerScript;
     ScneMove _scneMove;
@@ -44,10 +43,6 @@ public class GameManager : MonoBehaviour
             if (_timerText)
             {
                 _timerText.text = $"Time:{_timer.ToString("f2")}";
-            }
-            if(_clearCountText)
-            {
-                _clearCountText.text = $"残りアイテム:{_playerScript.ItemCount}/{_playerScript.ClearCount}";
             }
         }
         else

@@ -1145,10 +1145,6 @@ PrefabInstance:
       propertyPath: _resultTimer
       value: 
       objectReference: {fileID: 646839048}
-    - target: {fileID: 5413297706768069361, guid: 03fb6451c225a2c46ad333b093f0115e, type: 3}
-      propertyPath: _clearCountText
-      value: 
-      objectReference: {fileID: 1691238831}
     - target: {fileID: 5413297706768069362, guid: 03fb6451c225a2c46ad333b093f0115e, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -5037,17 +5033,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4496602291173815202, guid: ea4c7c9f0a994ec459af8775bdf883ba, type: 3}
   m_PrefabInstance: {fileID: 1632942387}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1691238831 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8128620802079897371, guid: cd9fe0b7445f27d438fa2a8326dd3afb, type: 3}
-  m_PrefabInstance: {fileID: 747062551}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1714456236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5842,14 +5827,6 @@ PrefabInstance:
       propertyPath: _bulletBlockCountText
       value: 
       objectReference: {fileID: 747062554}
-    - target: {fileID: 6193424450402402406, guid: 4a24ca18e7363614fa42f11dddea2573, type: 3}
-      propertyPath: _bulletList.Array.size
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6193424450402402406, guid: 4a24ca18e7363614fa42f11dddea2573, type: 3}
-      propertyPath: _scaffoldBlockList.Array.size
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 6193424450402402407, guid: 4a24ca18e7363614fa42f11dddea2573, type: 3}
       propertyPath: m_Name
       value: Player
