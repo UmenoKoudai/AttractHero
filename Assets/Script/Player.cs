@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
     Rigidbody2D _rb;
     /// <summary>ゲームスタートのポジションを記録するための変数</summary>
     Vector3 _basePosition;
+    Animator _anim;
     /// <summary>ブロックのポジションをリセットするメソッドを格納するデリゲート</summary>
     event Action _positionReset;
     /// <summary>ゲームが終了したときに動くメソッドを格納する</summary>
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
     bool _isGround;
     /// <summary>ゲーム終了したらtrueになって動作を止める</summary>
     bool _isFinish;
+    bool _isMagic;
     /// <summary>アイテム取得でカウントが増える</summary>
     int _itemCount;
 
@@ -82,11 +84,18 @@ public class Player : MonoBehaviour
         PositionReset += PlayerPositionReset;
         //スタートポジションを記録する
         _basePosition = transform.position;
+        _anim = GetComponent<Animator>();
+        for(int i = 0; i < _clearCount; i++)
+        {
+            _scaffoldBlockList.Add(_scaffold);
+            _bulletList.Add(_bullet);
+        }
     }
     void Update()
     {
         if (!_isFinish)
         {
+            _isMagic = false;
             _moveBlockCountText.text = $"足場:{_scaffoldBlockList.Count}";
             _bulletBlockCountText.text = $"弾数:{_bulletList.Count}";
             //キャラの移動と向きを変える
@@ -124,6 +133,7 @@ public class Player : MonoBehaviour
                     {
                         if (_scaffoldBlockList.Count > 0)
                         {
+                            _isMagic = true;
                             GameObject ScaffoldBlock = Instantiate(_scaffold);
                             ScaffoldBlock.transform.position = _cursor.position;
                             _scaffoldBlockList.RemoveAt(0);
@@ -138,6 +148,7 @@ public class Player : MonoBehaviour
                 {
                     if (_bulletList.Count > 0)
                     {
+                        _isMagic = true;
                         GameObject BulletBlock = Instantiate(_bullet);
                         BulletBlock.transform.position = _muzzlePosition.position;
                         _bulletList.RemoveAt(0);
@@ -189,6 +200,12 @@ public class Player : MonoBehaviour
             _itemCount++;
             Destroy(collision.gameObject);
         }
+    }
+    private void LateUpdate()
+    {
+        _anim.SetFloat("Run", Mathf.Abs(_rb.velocity.x));
+        _anim.SetFloat("Jump", _rb.velocity.y);
+        _anim.SetBool("Magic", _isMagic);
     }
     bool IsGround()
     {
