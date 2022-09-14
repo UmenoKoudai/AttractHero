@@ -41,9 +41,9 @@ public class Player : MonoBehaviour
     /// <summary>カーソルの位置を取得</summary>
     [SerializeField] Transform _cursor;
     /// <summary>足場ブロックを格納するList</summary>
-    List<GameObject> _scaffoldBlockList = new List<GameObject>();
+    [SerializeField] List<GameObject> _scaffoldBlockList = new List<GameObject>();
     /// <summary>弾ブロックを格納するList</summary>
-    List<GameObject> _bulletList = new List<GameObject>();
+    [SerializeField] List<GameObject> _bulletList = new List<GameObject>();
 
     /// <summary>Rigidbody2Dの格納場所/</summary>
     Rigidbody2D _rb;
@@ -85,11 +85,6 @@ public class Player : MonoBehaviour
         //スタートポジションを記録する
         _basePosition = transform.position;
         _anim = GetComponent<Animator>();
-        for(int i = 0; i < _clearCount; i++)
-        {
-            _scaffoldBlockList.Add(_scaffold);
-            _bulletList.Add(_bullet);
-        }
     }
     void Update()
     {
