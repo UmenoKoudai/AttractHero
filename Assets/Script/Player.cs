@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using UnityEngine.UI;
+using Cinemachine;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -27,6 +28,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameManager _gameManager;
     /// <summary>クリアするために必要なカウント</summary>
     [SerializeField] int _clearCount;
+    [SerializeField] CinemachineVirtualCameraBase _wholeCamera;
+    
 
     [Header("その他")]
     [SerializeField] Transform _muzzlePosition;
@@ -61,6 +64,7 @@ public class Player : MonoBehaviour
     bool _isMagic;
     /// <summary>アイテム取得でカウントが増える</summary>
     int _itemCount;
+    bool _isWholeCamera;
 
     /// <summary>ポジションリセットのデリゲートをプロパティ化</summary>
     public Action PositionReset { get => _positionReset; set => _positionReset = value; }
@@ -158,6 +162,18 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Cancel"))
             {
                 _positionReset();
+            }
+            if(Input.GetKeyDown(KeyCode.Tab))
+            {
+                _isWholeCamera = !_isWholeCamera;
+                if(_isWholeCamera)
+                {
+                    _wholeCamera.Priority = 11;
+                }
+                else
+                {
+                    _wholeCamera.Priority = 9;
+                }
             }
         }
     }
