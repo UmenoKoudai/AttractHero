@@ -9,6 +9,7 @@ public class BlockController : MonoBehaviour
     [SerializeField] int _moveSpeed;
     [SerializeField] bool _scaffoldBlock = false;
     [SerializeField] bool _bulletBlock = false;
+    [SerializeField] AudioSource _itemGetAudio;
     /// <summary>Rigidbody2Dを格納する場所</summary>
     Rigidbody2D _rb;
     /// <summary>プレイヤースクリプトを代入する型</summary>
@@ -69,7 +70,8 @@ public class BlockController : MonoBehaviour
             {
                 _player.ScaffoldBlockList.Add(gameObject);
             }
-            _rb.bodyType = RigidbodyType2D.Kinematic;
+            _itemGetAudio.Play();
+            _rb.bodyType = RigidbodyType2D.Static;
             transform.Translate(new Vector3(-99f, -99f, 0f));
         }
     }

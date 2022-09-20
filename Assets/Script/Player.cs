@@ -20,6 +20,12 @@ public class Player : MonoBehaviour
     [SerializeField] int _jumpPower;
     /// <summary>接地判定の時にRayを飛ばす距離</summary>
     [SerializeField] float _isGroundedLength = 1f;
+    [SerializeField] AudioSource _magicPlayAudio;
+    [SerializeField] AudioSource _itemGetAudio;
+    [SerializeField] AudioSource _ballGetAudio;
+    [SerializeField] ParticleSystem _magicEffect;
+    [SerializeField] Transform _jumpEffect;
+    [SerializeField] Transform _groundEffect;
 
     [Header("ゲームシステム関係")]
     /// <summary>Raycastでオブジェクトを判定するレイヤー/</summary>
@@ -136,6 +142,15 @@ public class Player : MonoBehaviour
                             GameObject ScaffoldBlock = Instantiate(_scaffold);
                             ScaffoldBlock.transform.position = _cursor.position;
                             _scaffoldBlockList.RemoveAt(0);
+                            _magicPlayAudio.Play();
+                            if (IsGround())
+                            {
+                                Instantiate(_magicEffect, _groundEffect.position, transform.rotation);
+                            }
+                            else
+                            {
+                                Instantiate(_magicEffect, _jumpEffect.position, transform.rotation);
+                            }
                         }
                     }
                 }
@@ -151,6 +166,15 @@ public class Player : MonoBehaviour
                         GameObject BulletBlock = Instantiate(_bullet);
                         BulletBlock.transform.position = _muzzlePosition.position;
                         _bulletList.RemoveAt(0);
+                        _magicPlayAudio.Play();
+                        if(IsGround())
+                        {
+                            Instantiate(_magicEffect, _groundEffect.position, transform.rotation);
+                        }
+                        else
+                        {
+                            Instantiate(_magicEffect, _jumpEffect.position, transform.rotation);
+                        }
                     }
                 }
             }
@@ -209,7 +233,13 @@ public class Player : MonoBehaviour
         if(collision.tag == "Ball")
         {
             _itemCount++;
+            _ballGetAudio.Play();
             Destroy(collision.gameObject);
+        }
+        if(collision.tag == "Block")
+        {
+            Debug.Log("アイテムゲット");
+            _itemGetAudio.Play();
         }
     }
     private void LateUpdate()
