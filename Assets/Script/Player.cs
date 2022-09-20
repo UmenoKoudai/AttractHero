@@ -101,8 +101,14 @@ public class Player : MonoBehaviour
         if (!_isFinish)
         {
             _isMagic = false;
-            _moveBlockCountText.text = $"足場:{_scaffoldBlockList.Count}";
-            _bulletBlockCountText.text = $"弾数:{_bulletList.Count}";
+            if (_moveBlockCountText)
+            {
+                _moveBlockCountText.text = $"足場:{_scaffoldBlockList.Count}";
+            }
+            if (_bulletBlockCountText)
+            {
+                _bulletBlockCountText.text = $"弾数:{_bulletList.Count}";
+            }
             //キャラの移動と向きを変える
             FlipX(Input.GetAxisRaw("Horizontal"));
             //キャラの移動(ジャンプ)
@@ -187,16 +193,19 @@ public class Player : MonoBehaviour
             {
                 _positionReset();
             }
-            if(Input.GetKeyDown(KeyCode.Tab))
+            if (_wholeCamera)
             {
-                _isWholeCamera = !_isWholeCamera;
-                if(_isWholeCamera)
+                if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    _wholeCamera.Priority = 11;
-                }
-                else
-                {
-                    _wholeCamera.Priority = 9;
+                    _isWholeCamera = !_isWholeCamera;
+                    if (_isWholeCamera)
+                    {
+                        _wholeCamera.Priority = 11;
+                    }
+                    else
+                    {
+                        _wholeCamera.Priority = 9;
+                    }
                 }
             }
         }
