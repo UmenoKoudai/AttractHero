@@ -71,6 +71,7 @@ public class Player : MonoBehaviour
     /// <summary>アイテム取得でカウントが増える</summary>
     int _itemCount;
     bool _isWholeCamera;
+    int _hp = 10;
 
     /// <summary>ポジションリセットのデリゲートをプロパティ化</summary>
     public Action PositionReset { get => _positionReset; set => _positionReset = value; }
@@ -80,6 +81,7 @@ public class Player : MonoBehaviour
     public List<GameObject> ScaffoldBlockList { get => _scaffoldBlockList; set => _scaffoldBlockList = value; }
     /// <summary>弾ブロックのListをプロパティ</summary>
     public List<GameObject> BulletList { get => _bulletList; set => _bulletList = value; }
+    public int HP { get => _hp; }
 
 
     void Start()
@@ -249,6 +251,13 @@ public class Player : MonoBehaviour
         {
             Debug.Log("アイテムゲット");
             _itemGetAudio.Play();
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "EnemyBullet")
+        {
+            _hp -= 1;
         }
     }
     private void LateUpdate()

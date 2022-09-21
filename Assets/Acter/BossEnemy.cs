@@ -18,6 +18,9 @@ public class BossEnemy : MonoBehaviour
     Animator _anima;
     float _timer;
     int _randomN = 1;
+    int _hp;
+
+    public int HP { get => _hp; }
     // Start is called before the first frame update
     void Start()
     {

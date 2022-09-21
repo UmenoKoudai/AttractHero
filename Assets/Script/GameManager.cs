@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,8 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _close;
     /// <summary>SetActiveで表示させるオブジェクトを格納する変数</summary>
     [SerializeField] GameObject _open;
+    [SerializeField] string _sceneName;
     /// <summary>Playerスクリプトを格納する変数</summary>
     Player _playerScript;
+    BossEnemy _enemyScript;
     ScneMove _scneMove;
     /// <summary>ゲーム終了したらtrueになって動作を止める</summary>
     bool _isFinish;
@@ -29,6 +32,7 @@ public class GameManager : MonoBehaviour
     {
         //Playerスクリプトを変数に代入
         _playerScript = GameObject.FindObjectOfType<Player>();
+        _enemyScript = GameObject.FindObjectOfType<BossEnemy>();
         //PlayerスクリプトのAllGameFinish変数にGameFinish変数を代入する
         _playerScript.AllGameFinish += GameFinish;
     }
@@ -44,6 +48,17 @@ public class GameManager : MonoBehaviour
             {
                 _timerText.text = $"Time:{_timer.ToString("f2")}";
             }
+            if (_playerScript.HP <= 0)
+            {
+                _playerScript.AllGameFinish();
+                _close.gameObject.SetActive(false);
+                _open.gameObject.SetActive(true);
+            }
+            if (_enemyScript.HP <= 0)
+            {
+                _playerScript.AllGameFinish();
+                SceneManager.LoadScene(_sceneName);
+            }
         }
         else
         {
@@ -51,7 +66,7 @@ public class GameManager : MonoBehaviour
             {
                 _resultTimer.text = $"Time{_timer.ToString("f2")}";
             }
-        }
+        }  
     }
     //ScneMoveスクリプトのSetActiveメソッドを実行
     public  void GameManagerSetActive()
