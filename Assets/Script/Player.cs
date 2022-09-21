@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     [SerializeField] ParticleSystem _magicEffect;
     [SerializeField] Transform _jumpEffect;
     [SerializeField] Transform _groundEffect;
+    [SerializeField] GameObject _playerLife;
+    [SerializeField] GameObject _breakLife;
 
     [Header("ゲームシステム関係")]
     /// <summary>Raycastでオブジェクトを判定するレイヤー/</summary>
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
     [SerializeField] List<GameObject> _scaffoldBlockList = new List<GameObject>();
     /// <summary>弾ブロックを格納するList</summary>
     [SerializeField] List<GameObject> _bulletList = new List<GameObject>();
+    [SerializeField] List<GameObject> _lifeList = new List<GameObject>();
 
     /// <summary>Rigidbody2Dの格納場所/</summary>
     Rigidbody2D _rb;
@@ -71,7 +74,7 @@ public class Player : MonoBehaviour
     /// <summary>アイテム取得でカウントが増える</summary>
     int _itemCount;
     bool _isWholeCamera;
-    int _hp = 10;
+    int _hp = 5;
 
     /// <summary>ポジションリセットのデリゲートをプロパティ化</summary>
     public Action PositionReset { get => _positionReset; set => _positionReset = value; }
@@ -252,12 +255,30 @@ public class Player : MonoBehaviour
             Debug.Log("アイテムゲット");
             _itemGetAudio.Play();
         }
+        if(collision.tag == "EnemyAttack")
+        {
+            if (_lifeList.Count >= 0)
+            {
+                _hp -= 1;
+                Destroy(_lifeList[0]);
+                _lifeList.RemoveAt(0);
+                GameObject breakLife = Instantiate(_breakLife);
+                breakLife.transform.SetParent(_playerLife.transform);
+            }
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "EnemyBullet")
         {
-            _hp -= 1;
+            if (_lifeList.Count >= 0)
+            {
+                _hp -= 1;
+                Destroy(_lifeList[0]);
+                _lifeList.RemoveAt(0);
+                GameObject breakLife = Instantiate(_breakLife);
+                breakLife.transform.SetParent(_playerLife.transform);
+            }
         }
     }
     private void LateUpdate()

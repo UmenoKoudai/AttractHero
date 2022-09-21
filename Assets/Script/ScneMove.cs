@@ -13,8 +13,7 @@ public class ScneMove : MonoBehaviour
     //シーンを移動させるソッド
     public void SceneMove(string SceneName)
     {
-        _clickButton.Play();
-        SceneManager.LoadScene(SceneName);
+        StartCoroutine(AudioPlay(SceneName));
     }
     public void SetActive(GameObject Close, GameObject Open)
     {
@@ -34,5 +33,11 @@ public class ScneMove : MonoBehaviour
         _open.gameObject.SetActive(true);
         _close2.gameObject.SetActive(false);
         _open2.gameObject.SetActive(true);
+    }
+    IEnumerator AudioPlay(string SceneName)
+    {
+        _clickButton.Play();
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene(SceneName);
     }
 }
