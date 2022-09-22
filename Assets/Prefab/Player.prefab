@@ -187,6 +187,8 @@ MonoBehaviour:
   _magicEffect: {fileID: 3503514782537637911, guid: 36f8f211ae75e4f48ab1cd61c21e3560, type: 3}
   _jumpEffect: {fileID: 1507831531274966031}
   _groundEffect: {fileID: 1852583795227115948}
+  _playerLife: {fileID: 0}
+  _breakLife: {fileID: 6966389354428769107, guid: 60acc783d1cc9b2469e055e1c798e332, type: 3}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -199,8 +201,24 @@ MonoBehaviour:
   _scaffold: {fileID: 4088081607919046444, guid: bed7e4ff62c458243b3720529de46c65, type: 3}
   _bullet: {fileID: 1748033766466106573, guid: 135308f43b3b27045beeb794594fdafa, type: 3}
   _cursor: {fileID: 6193424451255926531}
-  _scaffoldBlockList: []
+  _scaffoldBlockList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _bulletList: []
+  _lifeList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!95 &1089607148939449725
 Animator:
   serializedVersion: 4

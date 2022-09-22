@@ -273,6 +273,7 @@ public class Player : MonoBehaviour
         {
             if (_lifeList.Count >= 0)
             {
+                Destroy(collision.gameObject);
                 _hp -= 1;
                 Destroy(_lifeList[0]);
                 _lifeList.RemoveAt(0);

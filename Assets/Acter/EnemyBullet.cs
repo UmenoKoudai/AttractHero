@@ -17,7 +17,12 @@ public class EnemyBullet : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag != "Enemy")
+        if(collision.gameObject.tag == "Scaffold")
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Block")
         {
             Destroy(gameObject);
         }

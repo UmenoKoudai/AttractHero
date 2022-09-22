@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     /// <summary>SetActiveで表示させるオブジェクトを格納する変数</summary>
     [SerializeField] GameObject _open;
     [SerializeField] string _sceneName;
+    [SerializeField] PlayableDirector _endTimeLine;
     /// <summary>Playerスクリプトを格納する変数</summary>
     Player _playerScript;
     BossEnemy _enemyScript;
@@ -54,10 +56,13 @@ public class GameManager : MonoBehaviour
                 _close.gameObject.SetActive(false);
                 _open.gameObject.SetActive(true);
             }
-            if (_enemyScript.HP <= 0)
+            if (FindObjectOfType<BossEnemy>())
             {
-                _playerScript.AllGameFinish();
-                SceneManager.LoadScene(_sceneName);
+                if (_enemyScript.HP <= 0)
+                {
+                    _playerScript.AllGameFinish();
+                    StartCoroutine(EndTimeLine());
+                }
             }
         }
         else
@@ -81,5 +86,11 @@ public class GameManager : MonoBehaviour
     void GameFinish()
     {
         _isFinish = true;
+    }
+    IEnumerator EndTimeLine()
+    {
+        _endTimeLine.Play();
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(_sceneName);
     }
 }

@@ -12,6 +12,8 @@ TagManager:
   - EnemyBullet
   - EnemyAttack
   - Enemy
+  - Scaffold
+  - Wall
   layers:
   - Default
   - TransparentFX
