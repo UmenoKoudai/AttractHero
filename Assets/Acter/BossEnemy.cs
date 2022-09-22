@@ -45,17 +45,21 @@ public class BossEnemy : MonoBehaviour
             float dir = Vector2.Distance(transform.position, _player.position);
             if (dir >= _distance)
             {
-                if (transform.position.x >= _player.position.x)
+                if (transform.position.x > _player.position.x)
                 {
                     _velocity = Vector2.left * _moveSpeed;
                     FlipX(Vector2.left.x);
                     _anima.SetFloat("Run", Mathf.Abs(_velocity.x));
                 }
-                if (transform.position.x <= _player.position.x)
+                else if (transform.position.x < _player.position.x)
                 {
                     _velocity = Vector2.right * _moveSpeed;
                     FlipX(Vector2.right.x);
                     _anima.SetFloat("Run", Mathf.Abs(_velocity.x));
+                }
+                else
+                {
+                    _anima.SetFloat("Run", Mathf.Abs(0));
                 }
                 if (_timer >= _intarval)
                 {

@@ -3211,6 +3211,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 909850927264047362, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
   m_PrefabInstance: {fileID: 719445779}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &719445782 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 249964891320810216, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
+  m_PrefabInstance: {fileID: 719445779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &737796527
 GameObject:
   m_ObjectHideFlags: 0
@@ -3530,6 +3535,11 @@ GameObject:
 --- !u!95 &837241929 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5524316090583913214, guid: d42dea4dd0b7edd42b939be1cc60eddc, type: 3}
+  m_PrefabInstance: {fileID: 837241926}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &837241930 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1471389923, guid: d42dea4dd0b7edd42b939be1cc60eddc, type: 3}
   m_PrefabInstance: {fileID: 837241926}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &867869124
@@ -6520,6 +6530,12 @@ PlayableDirector:
     value: {fileID: 719445781}
   - key: {fileID: 2153525129995806775, guid: a6407688ab1922b46b03423fc8c69212, type: 2}
     value: {fileID: 719445780}
+  - key: {fileID: -1730513254823626009, guid: a6407688ab1922b46b03423fc8c69212, type: 2}
+    value: {fileID: 5413297706257121815}
+  - key: {fileID: 4702624264748119889, guid: a6407688ab1922b46b03423fc8c69212, type: 2}
+    value: {fileID: 837241930}
+  - key: {fileID: 8510017796734583980, guid: a6407688ab1922b46b03423fc8c69212, type: 2}
+    value: {fileID: 719445782}
   m_ExposedReferences:
     m_References:
     - 6d1446c1c58c8cf42afd36c5495da8f0: {fileID: 1326753150}
@@ -9150,9 +9166,14 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5413297706768069361, guid: 03fb6451c225a2c46ad333b093f0115e, type: 3}
   m_PrefabInstance: {fileID: 5413297706257121812}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 5413297706257121815}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e60eec2f3dcc89d43b061eccc4a547fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5413297706257121815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5413297706768069360, guid: 03fb6451c225a2c46ad333b093f0115e, type: 3}
+  m_PrefabInstance: {fileID: 5413297706257121812}
+  m_PrefabAsset: {fileID: 0}

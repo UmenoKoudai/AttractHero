@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     IEnumerator EndTimeLine()
     {
         _endTimeLine.Play();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(12f);
         SceneManager.LoadScene(_sceneName);
     }
 }

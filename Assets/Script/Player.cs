@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     /// <summary>ジャンプの力/</summary>
     [SerializeField] int _jumpPower;
     /// <summary>接地判定の時にRayを飛ばす距離</summary>
-    [SerializeField] float _isGroundedLength = 1f;
+    [SerializeField] float _isGroundedLength;
     [SerializeField] AudioSource _magicPlayAudio;
     [SerializeField] AudioSource _itemGetAudio;
     [SerializeField] AudioSource _ballGetAudio;
@@ -214,6 +214,10 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            _rb.velocity = Vector2.zero;
+        }
     }
     IEnumerator Dush()
     {
@@ -234,7 +238,7 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector2(-1 * Mathf.Abs(transform.localScale.x), transform.localScale.y);
         }
     }
-    //接地判定
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Flagに当たった時アイテムカウントがクリアカウントと同じになっていればResult表示
@@ -288,6 +292,7 @@ public class Player : MonoBehaviour
         _anim.SetFloat("Jump", _rb.velocity.y);
         _anim.SetBool("Magic", _isMagic);
     }
+    //接地判定
     bool IsGround()
     {
         //指定のレイヤーオブジェクトにRayが当たっていなければfalseを返す
