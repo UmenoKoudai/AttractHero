@@ -1286,6 +1286,7 @@ Transform:
   - {fileID: 1800986314}
   - {fileID: 375929987}
   - {fileID: 589929598}
+  - {fileID: 719445783}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3109,7 +3110,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 229965664}
     m_Modifications:
     - target: {fileID: 909850927264047356, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
       propertyPath: m_Name
@@ -3125,7 +3126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 909850927264047360, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 909850927264047360, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3214,6 +3215,11 @@ Animator:
 --- !u!82 &719445782 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 249964891320810216, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
+  m_PrefabInstance: {fileID: 719445779}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &719445783 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 909850927264047360, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
   m_PrefabInstance: {fileID: 719445779}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &737796527
@@ -3847,6 +3853,7 @@ Transform:
   - {fileID: 2351791775432019557}
   - {fileID: 2036386198}
   - {fileID: 1543024100}
+  - {fileID: 1328754367}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5809,13 +5816,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328754365}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1330.166, y: 665.60565, z: -19.861803}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1335.3406, y: 663.76825, z: -19.63331}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 892983183}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1334510371
 PrefabInstance:
@@ -7708,7 +7715,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.27
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

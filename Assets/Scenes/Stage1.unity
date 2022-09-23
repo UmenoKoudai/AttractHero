@@ -2621,7 +2621,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1768759538}
     m_Modifications:
     - target: {fileID: 249964891320810216, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
       propertyPath: m_PlayOnAwake
@@ -2641,7 +2641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 909850927264047360, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 909850927264047360, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2730,6 +2730,11 @@ Animator:
 --- !u!82 &829955421 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 249964891320810216, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
+  m_PrefabInstance: {fileID: 829955418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &829955422 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 909850927264047360, guid: ac5b6e98af92f3c4d8b1bae54b266c3b, type: 3}
   m_PrefabInstance: {fileID: 829955418}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &840157362 stripped
@@ -4408,6 +4413,7 @@ Transform:
   - {fileID: 707886101}
   - {fileID: 623537083}
   - {fileID: 506847369}
+  - {fileID: 829955422}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
