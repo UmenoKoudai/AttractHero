@@ -140,7 +140,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.15, y: 0}
-  m_Size: {x: 0.85, y: 1.39}
+  m_Size: {x: 1.14, y: 1.55}
   m_Direction: 0
 --- !u!50 &6193424450402402329
 Rigidbody2D:
@@ -183,7 +183,7 @@ MonoBehaviour:
   _isGroundedLength: 1.5
   _magicPlayAudio: {fileID: 1547082723781486571}
   _itemGetAudio: {fileID: 5181478856505245639}
-  _ballGetAudio: {fileID: 5181478856505245639}
+  _jemGetAudio: {fileID: 5181478856505245639}
   _magicEffect: {fileID: 3503514782537637911, guid: 36f8f211ae75e4f48ab1cd61c21e3560, type: 3}
   _jumpEffect: {fileID: 1507831531274966031}
   _groundEffect: {fileID: 1852583795227115948}

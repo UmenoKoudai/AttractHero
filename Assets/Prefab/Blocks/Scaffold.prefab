@@ -183,7 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1135583420761785513}
   - component: {fileID: 3514100704514314692}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tiles_Grassland_Size_Original_22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8071601603893109508}
   - component: {fileID: 6892594710766792043}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tiles_Grassland_Size_Original_21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
