@@ -22,13 +22,19 @@ public class ScneMove : MonoBehaviour
     }
     public void SetActiveButton()
     {
-        _clickButton.Play();
+        if (_clickButton)
+        {
+            _clickButton.Play();
+        }
         _close.gameObject.SetActive(false);
         _open.gameObject.SetActive(true);
     }
     public void SetActiveButton4()
     {
-        _clickButton.Play();
+        if (_clickButton)
+        {
+            _clickButton.Play();
+        }
         _close.gameObject.SetActive(false);
         _open.gameObject.SetActive(true);
         _close2.gameObject.SetActive(false);
@@ -36,7 +42,10 @@ public class ScneMove : MonoBehaviour
     }
     IEnumerator AudioPlay(string SceneName)
     {
-        _clickButton.Play();
+        if (_clickButton)
+        {
+            _clickButton.Play();
+        }
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(SceneName);
     }

@@ -14,15 +14,20 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject _barral;
     /// <summary>左右移動の力/</summary>
     [SerializeField] int _moveSpeed;
+    /// <summary>最初の移動スピード/</summary>
     [SerializeField] int _defaultSpeed;
+    /// <summary>ダッシュ時の移動スピード/</summary>
     [SerializeField] int _dushSpeed;
     /// <summary>ジャンプの力/</summary>
     [SerializeField] int _jumpPower;
     /// <summary>接地判定の時にRayを飛ばす距離</summary>
     [SerializeField] float _isGroundedLength;
+    /// <summary>魔法使用時の音声</summary>
     [SerializeField] AudioSource _magicPlayAudio;
+    /// <summary>アイテムゲット時の音声</summary>
     [SerializeField] AudioSource _itemGetAudio;
-    [SerializeField] AudioSource _ballGetAudio;
+    /// <summary>ジェムゲット時の音声</summary>
+    [SerializeField] AudioSource _jemGetAudio;
     [SerializeField] ParticleSystem _magicEffect;
     [SerializeField] Transform _jumpEffect;
     [SerializeField] Transform _groundEffect;
@@ -189,10 +194,14 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            if(Input.GetButtonDown("Fire3"))
-            {
-                StartCoroutine(Dush());
-            }
+            //if(Input.GetButtonDown("Fire3"))
+            //{
+            //    _moveSpeed = _dushSpeed;
+            //}
+            //else
+            //{
+            //    _moveSpeed = _defaultSpeed;
+            //}
             //エスケープキー(esc)を押したらブロックの位置がリセットされる
             if (Input.GetButtonDown("Cancel"))
             {
@@ -219,16 +228,23 @@ public class Player : MonoBehaviour
             _rb.velocity = Vector2.zero;
         }
     }
-    IEnumerator Dush()
-    {
-        _moveSpeed = _dushSpeed;
-        yield return new WaitForSeconds(0.5f);
-        _moveSpeed = _defaultSpeed;
-    }
+    //IEnumerator Dush()
+    //{
+    //    _moveSpeed = _dushSpeed;
+    //    yield return new WaitForSeconds(0.5f);
+    //    _moveSpeed = _defaultSpeed;
+    //}
     //プレイヤーを入力方向に向けるメソッド
     void FlipX(float X)
     {
-        _rb.velocity = new Vector2(X * _moveSpeed, _rb.velocity.y);
+        if (Input.GetButton("Fire3"))
+        {
+            _rb.velocity = new Vector2(X * _dushSpeed, _rb.velocity.y);
+        }
+        else
+        {
+            _rb.velocity = new Vector2(X * _defaultSpeed, _rb.velocity.y);
+        }
         if (X > 0)
         {
             transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
@@ -251,7 +267,7 @@ public class Player : MonoBehaviour
         if(collision.tag == "Ball")
         {
             _itemCount++;
-            _ballGetAudio.Play();
+            _jemGetAudio.Play();
             Destroy(collision.gameObject);
         }
         if(collision.tag == "Block")
@@ -298,12 +314,23 @@ public class Player : MonoBehaviour
         //指定のレイヤーオブジェクトにRayが当たっていなければfalseを返す
         _isGround = false;
         //指定のレイヤーオブジェクトにRayが当たっていればtrueを返す
-        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, Vector2.down, _isGroundedLength, _groundLayer);
+        RaycastHit2D hitDown = Physics2D.Raycast(this.transform.position, Vector2.down, _isGroundedLength, _groundLayer);
+        RaycastHit2D hitRight = Physics2D.Raycast(this.transform.position, Vector2.right, _isGroundedLength, _groundLayer);
+        RaycastHit2D hitLeft = Physics2D.Raycast(this.transform.position, Vector2.left, _isGroundedLength, _groundLayer);
         Debug.DrawRay(this.transform.position, Vector2.down * _isGroundedLength);
-        if (hit.collider)
+        if (hitDown.collider)
         {
             _isGround = true;
         }
+        if (hitRight.collider)
+        {
+            _isGround = true;
+        }
+        if (hitLeft.collider)
+        {
+            _isGround = true;
+        }
+        
         return _isGround;
     }
     //ゲーム終了時にbool型をtrueにする
