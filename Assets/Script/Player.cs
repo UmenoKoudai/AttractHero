@@ -315,21 +315,21 @@ public class Player : MonoBehaviour
         _isGround = false;
         //指定のレイヤーオブジェクトにRayが当たっていればtrueを返す
         RaycastHit2D hitDown = Physics2D.Raycast(this.transform.position, Vector2.down, _isGroundedLength, _groundLayer);
-        RaycastHit2D hitRight = Physics2D.Raycast(this.transform.position, Vector2.right, _isGroundedLength, _groundLayer);
-        RaycastHit2D hitLeft = Physics2D.Raycast(this.transform.position, Vector2.left, _isGroundedLength, _groundLayer);
+        //RaycastHit2D hitRight = Physics2D.Raycast(this.transform.position, Vector2.right, _isGroundedLength, _groundLayer);
+        //RaycastHit2D hitLeft = Physics2D.Raycast(this.transform.position, Vector2.left, _isGroundedLength, _groundLayer);
         Debug.DrawRay(this.transform.position, Vector2.down * _isGroundedLength);
         if (hitDown.collider)
         {
             _isGround = true;
         }
-        if (hitRight.collider)
-        {
-            _isGround = true;
-        }
-        if (hitLeft.collider)
-        {
-            _isGround = true;
-        }
+        //if (hitRight.collider)
+        //{
+        //    _isGround = true;
+        //}
+        //if (hitLeft.collider)
+        //{
+        //    _isGround = true;
+        //}
         
         return _isGround;
     }
