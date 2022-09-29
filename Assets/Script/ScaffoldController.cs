@@ -8,6 +8,7 @@ public class ScaffoldController : MonoBehaviour
     private void Start()
     {
         _player = GameObject.FindObjectOfType<Player>();
+        //_player.PositionReset += ResetButton;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,6 +17,13 @@ public class ScaffoldController : MonoBehaviour
             StartCoroutine(BulletHit(collision));
         }
     }
+    //public void ResetButton()
+    //{
+    //    if (FindObjectsOfType<ScaffoldController>().Length > 0)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
     IEnumerator BulletHit(Collider2D collision)
     {
         _player.ScaffoldBlockList.Add(gameObject);

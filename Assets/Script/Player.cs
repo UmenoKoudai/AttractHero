@@ -342,6 +342,22 @@ public class Player : MonoBehaviour
     //ポジションリセットの関数
     void PlayerPositionReset()
     {
+        //if (_bulletList.Count > 0)
+        //{
+        //    foreach (GameObject bullet in _bulletList)
+        //    {
+        //        Debug.Log("リスト削除弾");
+        //        _bulletList.Remove(bullet);
+        //    }
+        //}
+        //if (_scaffoldBlockList.Count > 0)
+        //{
+        //    foreach (var scaffoldBlock in _scaffoldBlockList)
+        //    {
+        //        Debug.Log("リスト削除足場");
+        //        _scaffoldBlockList.Remove(scaffoldBlock);
+        //    }
+        //}
         transform.position = _basePosition;
     }
 }

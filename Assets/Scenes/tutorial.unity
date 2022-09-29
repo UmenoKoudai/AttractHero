@@ -4534,18 +4534,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 847457634114772337, guid: cd9fe0b7445f27d438fa2a8326dd3afb, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 2faa6303597b8304eb837fff46909884, type: 3}
-    - target: {fileID: 6309182695499228444, guid: cd9fe0b7445f27d438fa2a8326dd3afb, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 2faa6303597b8304eb837fff46909884, type: 3}
-    - target: {fileID: 6309182695534259954, guid: cd9fe0b7445f27d438fa2a8326dd3afb, type: 3}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 2faa6303597b8304eb837fff46909884, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd9fe0b7445f27d438fa2a8326dd3afb, type: 3}
 --- !u!4 &6650829294917832082 stripped
